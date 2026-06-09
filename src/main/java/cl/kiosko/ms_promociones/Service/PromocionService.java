@@ -62,7 +62,7 @@ public class PromocionService {
     public PromocionResponseDTO savePromocion(PromocionRequestDTO dto) {
         log.info("Creando promoción: {}", dto.getNombre());
 
-        for (Long productoId : dto.getProductoIds()) {
+        for (Long productoId : dto.getProductosId()) {
             validarProductoExiste(productoId);
         }
 
@@ -73,7 +73,7 @@ public class PromocionService {
         promocion.setFechaFin(dto.getFechaFin());
 
         List<ProductoPromocion> listaProductos = new ArrayList<>();
-        for (Long productoId : dto.getProductoIds()) {
+        for (Long productoId : dto.getProductosId()) {
             ProductoPromocion pp = new ProductoPromocion();
             pp.setProductoId(productoId);
             pp.setPromocion(promocion);

@@ -23,5 +23,5 @@ public class PromocionRequestDTO {
 
     // Aquí recibimos los IDs de los productos a los que se les aplicará el descuento
     @NotEmpty(message = "Debe asignar al menos un producto a la promoción")
-    private List<Long> productoIds;
+    private List<Long> productosId;
 }
