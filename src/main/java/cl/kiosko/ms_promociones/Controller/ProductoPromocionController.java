@@ -1,5 +1,6 @@
 package cl.kiosko.ms_promociones.Controller;
 
+import cl.kiosko.ms_promociones.Assembler.ProductoPromocionAssembler;
 import cl.kiosko.ms_promociones.DTO.ProductoPromocionRequestDTO;
 import cl.kiosko.ms_promociones.DTO.ProductoPromocionResponseDTO;
 import cl.kiosko.ms_promociones.Service.ProductoPromocionService;
@@ -19,15 +20,17 @@ public class ProductoPromocionController {
     @Autowired
     private ProductoPromocionService productoPromocionService;
 
+    @Autowired
+    private ProductoPromocionAssembler assembler;
+
     @PostMapping("/promocion/{promocionId}")
     @Operation(summary = "Asignar Promoción a un Producto", description = "Toma una promoción existente (Requerido por el modelo de la relación) y le asigna un producto para que este quede en oferta (Crea un objeto de ProductoPromoción)")
     public ResponseEntity<ProductoPromocionResponseDTO> asignarProducto(
             @PathVariable Long promocionId,
             @Valid @RequestBody ProductoPromocionRequestDTO dto) {
-        return new ResponseEntity<>(
-                productoPromocionService.agregarProductoAPromocion(promocionId, dto),
-                HttpStatus.CREATED
-        );
+
+        ProductoPromocionResponseDTO response = productoPromocionService.agregarProductoAPromocion(promocionId, dto);
+        return new ResponseEntity<>(assembler.toModel(response), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
