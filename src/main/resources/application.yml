@@ -9,9 +9,8 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/kiosko_promociones?createDatabaseIfNotExist=true
     username: root
-    password: "" # En YAML, es buena práctica usar comillas vacías si no hay contraseña
+    password:
 
-  # 'validate' es la mejor práctica cuando usas Flyway para asegurar que el código coincida con la DB
   jpa:
     hibernate:
       ddl-auto: validate
@@ -43,3 +42,10 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /doc/swagger-ui.html
+
+application:
+  security:
+    jwt:
+      secret-key: ClaveSecreta123456789ClaveSecreta123456789ClaveSecreta123456789
+      # Tiempo de vida del token (86400000 ms = 1 dÃ­a)
+      expiration: 86400000
